@@ -82,6 +82,18 @@ int nnls::saveStats(const char* fn)
   return 0;
 }
 
+int nnls::saveStats(std::ostream& os)
+{
+  os << "NNLS: Solver (v) 1.0\n(c) 2010 Suvrit Sra\n";
+  os << "Matrix = " << A->memoryUsage() << " bytes, rhs = " << sizeof(double) * A->nrows() << " bytes\n";
+  os << "Extra Memory used=" << out.memory << " bytes\nTime\t\tObj\n";
+
+  for (int i = 0; i < out.iter; i++) {
+    os << out.time->get(i) << "\t" << out.obj->get(i) << "\t" << out.pgnorms->get(i) << std::endl;
+  }
+  return 0;
+}
+
 void nnls::computeObjGrad()
 {
   A->dot(matrix::NOTRAN, x, ax);

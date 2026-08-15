@@ -24,6 +24,7 @@
 #include "denseMatrix.h"
 #include "sparseMatrix.h"
 #include <ctime>
+#include <ostream>
 
 namespace nsNNLS {
   class nnls {
@@ -118,6 +119,7 @@ namespace nsNNLS {
     // The functions that actually launch the ship, and land it!
     int     optimize();
     int     saveStats(const char* fn);
+    int     saveStats(std::ostream& os);
     double  getOptimizationTime() { return out.time->get(out.iter);}
   };
 }
